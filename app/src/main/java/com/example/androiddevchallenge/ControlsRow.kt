@@ -1,9 +1,23 @@
+/*
+ * Copyright 2021 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.example.androiddevchallenge
 
 import android.os.CountDownTimer
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
@@ -36,7 +50,8 @@ fun ControlsRow(
                 onClick = {
                     viewModel.toggleIsRunning()
                     countdown.cancel()
-                }) {
+                }
+            ) {
                 Icon(
                     Icons.Outlined.PauseCircle, "Pause",
                     tint = Color.White,
@@ -50,7 +65,8 @@ fun ControlsRow(
                 onClick = {
                     viewModel.toggleIsRunning()
                     countdown.start()
-                }) {
+                }
+            ) {
                 Icon(
                     Icons.Outlined.PlayCircle, "Start",
                     tint = Color.White,
@@ -63,7 +79,8 @@ fun ControlsRow(
                 modifier = Modifier.then(Modifier.size(48.dp)),
                 onClick = {
                     // TODO
-                }) {
+                }
+            ) {
                 Icon(
                     Icons.Outlined.Edit, "Edit",
                     tint = Color.White,
@@ -78,7 +95,8 @@ fun ControlsRow(
                     viewModel.toggleIsRunning()
                     countdown.cancel()
                     viewModel.onTimeChanged(1000L)
-                }) {
+                }
+            ) {
                 Icon(
                     Icons.Outlined.RestartAlt, "Reset",
                     tint = Color.White,

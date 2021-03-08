@@ -30,13 +30,15 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.TileMode
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.androiddevchallenge.ui.theme.*
+import com.example.androiddevchallenge.ui.theme.MyTheme
+import com.example.androiddevchallenge.ui.theme.green
+import com.example.androiddevchallenge.ui.theme.lightPink
+import com.example.androiddevchallenge.ui.theme.lime
+import com.example.androiddevchallenge.ui.theme.yellow
 
 @ExperimentalFoundationApi
 @ExperimentalAnimationApi
@@ -58,15 +60,16 @@ class MainActivity : AppCompatActivity() {
 @Composable
 fun TimerApp(timeViewModel: TimeViewModel = viewModel()) {
     Surface(color = MaterialTheme.colors.background) {
-        Box(modifier = Modifier
-            .fillMaxWidth()
-            .fillMaxHeight()
-            .background(
-                Brush.radialGradient(
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight()
+                .background(
+                    Brush.radialGradient(
 //                    listOf(darkPurple, orange, pink, lightPurple),
-                    listOf(lightPink, green, lime, yellow),
-                    tileMode = TileMode.Mirror
-                )
+                        listOf(lightPink, green, lime, yellow),
+                        tileMode = TileMode.Mirror
+                    )
 //                Brush.sweepGradient(
 //                    listOf(
 //                        Color.Red,
@@ -78,7 +81,7 @@ fun TimerApp(timeViewModel: TimeViewModel = viewModel()) {
 //                        Color.Red
 //                    ),
 //                )
-            )
+                )
         ) {
             TimeDisplay(timeViewModel)
         }
