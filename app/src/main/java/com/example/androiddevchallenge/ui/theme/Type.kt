@@ -16,28 +16,27 @@
 package com.example.androiddevchallenge.ui.theme
 
 import androidx.compose.material.Typography
-import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.sp
+import com.example.androiddevchallenge.R
 
-// Set of Material typography styles to start with
+val Acme = FontFamily(
+    Font(R.font.acme_regular)
+)
+
+private val defaultTypography = Typography()
 val typography = Typography(
-    body1 = TextStyle(
-        fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.Normal,
-        fontSize = 16.sp
-    )
-        /* Other default text styles to override
-    button = TextStyle(
-        fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.W500,
-        fontSize = 14.sp
-    ),
-    caption = TextStyle(
-        fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.Normal,
-        fontSize = 12.sp
-    )
-    */
+    h1 = defaultTypography.h1.copy(fontFamily = Acme),
+    h2 = defaultTypography.h2.copy(fontFamily = Acme),
+    h3 = defaultTypography.h3.copy(fontFamily = Acme),
+    h4 = defaultTypography.h4.copy(fontFamily = Acme),
+    h5 = defaultTypography.h5.copy(fontFamily = Acme),
+    h6 = defaultTypography.h6.copy(fontFamily = Acme),
+    subtitle1 = defaultTypography.subtitle1.copy(fontFamily = Acme),
+    subtitle2 = defaultTypography.subtitle2.copy(fontFamily = Acme),
+    body1 = defaultTypography.overline.copy(fontFamily = Acme),
+    body2 = defaultTypography.overline.copy(fontFamily = Acme),
+    button = defaultTypography.overline.copy(fontFamily = Acme),
+    caption = defaultTypography.overline.copy(fontFamily = Acme),
+    overline = defaultTypography.overline.copy(fontFamily = Acme)
 )

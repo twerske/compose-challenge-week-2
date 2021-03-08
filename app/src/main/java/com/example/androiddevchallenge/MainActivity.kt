@@ -17,24 +17,26 @@ package com.example.androiddevchallenge
 
 import android.os.Build
 import android.os.Bundle
-import android.os.CountDownTimer
 import androidx.activity.compose.setContent
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.layout.*
-import androidx.compose.material.*
-import androidx.compose.runtime.*
-import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.TileMode
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.androiddevchallenge.ui.theme.MyTheme
+import com.example.androiddevchallenge.ui.theme.*
 
 @ExperimentalFoundationApi
 @ExperimentalAnimationApi
@@ -44,20 +46,42 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             MyTheme {
-                MyApp()
+                TimerApp()
             }
         }
     }
 }
 
-// Start building your app here!
 @ExperimentalFoundationApi
 @ExperimentalAnimationApi
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun MyApp(timeViewModel: TimeViewModel = viewModel()) {
+fun TimerApp(timeViewModel: TimeViewModel = viewModel()) {
     Surface(color = MaterialTheme.colors.background) {
-        TimeDisplay(timeViewModel)
+        Box(modifier = Modifier
+            .fillMaxWidth()
+            .fillMaxHeight()
+            .background(
+                Brush.radialGradient(
+//                    listOf(darkPurple, orange, pink, lightPurple),
+                    listOf(lightPink, green, lime, yellow),
+                    tileMode = TileMode.Mirror
+                )
+//                Brush.sweepGradient(
+//                    listOf(
+//                        Color.Red,
+//                        Color.Yellow,
+//                        Color.Green,
+//                        Color.Cyan,
+//                        Color.Blue,
+//                        Color.Magenta,
+//                        Color.Red
+//                    ),
+//                )
+            )
+        ) {
+            TimeDisplay(timeViewModel)
+        }
     }
 }
 
@@ -68,7 +92,7 @@ fun MyApp(timeViewModel: TimeViewModel = viewModel()) {
 @Composable
 fun LightPreview() {
     MyTheme {
-        MyApp()
+        TimerApp()
     }
 }
 
@@ -79,90 +103,6 @@ fun LightPreview() {
 @Composable
 fun DarkPreview() {
     MyTheme(darkTheme = true) {
-        MyApp()
+        TimerApp()
     }
-}
-
-@ExperimentalAnimationApi
-@ExperimentalFoundationApi
-@OptIn(ExperimentalFoundationApi::class)
-@RequiresApi(Build.VERSION_CODES.O)
-@Composable
-fun TimeDisplay(viewModel: TimeViewModel) {
-    val time: Long by viewModel.time.observeAsState(300000L)
-    val countdown = object : CountDownTimer(time, 1000) {
-        override fun onTick(l: Long) {
-            viewModel.onTimeChanged(l)
-        }
-
-        override fun onFinish() {
-
-        }
-    }
-
-    Column(modifier = Modifier.padding(16.dp)) {
-        val m = viewModel.getMinutes()
-        val s = viewModel.getSeconds()
-
-        Text(
-            text = "$m : $s",
-            modifier = Modifier.padding(bottom = 8.dp),
-            style = MaterialTheme.typography.h5
-        )
-        OutlinedTextField(
-            value = time.toString(),
-            onValueChange = {
-                countdown.cancel()
-                viewModel.onTimeChanged(it.toLong())
-            },
-            label = { Text("Countdown Time") }
-        )
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            Button(onClick = { countdown.start() }) {
-                Text(text = "START")
-            }
-            Button(onClick = { countdown.start() }) {
-                Text(text = "PAUSE")
-            }
-            Button(onClick = { countdown.cancel() }) {
-                Text(text = "CANCEL")
-            }
-        }
-    }
-}
-
-class TimeViewModel : ViewModel() {
-    private val _time = MutableLiveData(300000L)
-    val time: LiveData<Long> = _time
-
-    fun onTimeChanged(newTime: Long) {
-        _time.value = newTime
-    }
-
-    fun getMinutes(): Long {
-        return (_time.value!! / 1000) / 60
-    }
-
-    fun getSeconds(): Long {
-        return (_time.value!! / 1000) % 60
-    }
-
-//    fun getYears() {
-//        return (_time.value / 1000) / 60
-//    }
-
-//    fun getMonths() {
-//        return (_time.value / 1000) / 60
-//    }
-
-//    fun getDays() {
-//        return (_time.value / 1000) / 60
-//    }
-
-//    fun getHours() {
-//        return (_time.value / 1000) / 60
-//    }
 }
